@@ -5,24 +5,30 @@ var searchedFood = function(response){
   $('#display-results').empty();
   $('#show-image').empty();
   var array = response.hits;
-  var recipeName = response.hits[0].recipe.label;
-  var img = response.hits[0].recipe.image;
-  var url = response.hits[0].recipe.url;
-  var fat = response.hits[0].recipe.digest[0].label;
   for (i=0;i<array.length;i++){
-      $('#display-results').append("<div class='show-image' id='show-image"+ i + "'></div><div class='display-results' id='display-results"+ i + "'><h4>" + response.hits[i].recipe.label + "</h4></div>");
-      $("#show-image"+i).append("<img src="+response.hits[i].recipe.image+">");
+      $('#display-results').append(" <div class='well col-md-6 capsule' id='capsule"+ i + "'><div class='show-image' id='show-image"+ i + "'></div><div class='display-results' id='display-results"+ i + "'><h4>" + response.hits[i].recipe.label + "</h4></div></div>");
+      $("#show-image"+i).append("<a href='"+response.hits[i].recipe.url+"'><img src="+response.hits[i].recipe.image+"></a>");
   };
   for (i=0;i<array.length;i++){
-    for (j=0;j<response.hits[i].recipe.digest.length;j++){
+    for (j=0;j<3;j++){
     $("#display-results"+i).append("<li>"+response.hits[i].recipe.digest[j].label+" - "+ parseFloat(response.hits[i].recipe.digest[j].total).toFixed(2) + response.hits[i].recipe.digest[j].unit +"</li>")
     };
   };
-  // for (i=0;i<3;i++){
-  //   $('#display-results' + i).append("<div class='display-results'" + i + "id='display-results'" + i + "><h4>" + response.hits[i].recipe.label + "</h4></div>");
-  // };
-  // $('#display-results').append("<h4>" + recipeName + "</h4><br><li>" + fat + "</li><li>" + "<a href=" + url + ">" + url + "</a>" + "</li>");
-  // $('#show-image').append("<img src=" + img + ">");
+};
+
+var healthSearch = function(response){
+  $('#display-results').empty();
+  $('#show-image').empty();
+  var array = response.hits;
+  for (i=0;i<array.length;i++){
+      $('#display-results').append(" <div class='well col-md-6 capsule' id='capsule"+ i + "'><div class='show-image' id='show-image"+ i + "'></div><div class='display-results' id='display-results"+ i + "'><h4>" + response.hits[i].recipe.label + "</h4></div></div>");
+      $("#show-image"+i).append("<a href='"+response.hits[i].recipe.url+"'><img src="+response.hits[i].recipe.image+"></a>");
+  };
+  for (i=0;i<array.length;i++){
+    for (j=0;j<3;j++){
+    $("#display-results"+i).append("<li>"+response.hits[i].recipe.digest[j].label+" - "+ parseFloat(response.hits[i].recipe.digest[j].total).toFixed(2) + response.hits[i].recipe.digest[j].unit +"</li>")
+    };
+  };
 };
 
 
@@ -34,5 +40,13 @@ $(document).ready(function(){
     var food = $('#search-food').val();
     $('#search-food').val("");
     recipe.getRecipe(food, searchedFood);
+  });
+  $('#health-label').submit(function(event) {
+    event.preventDefault();
+    $('#search-health').val("");
+    var food = $('#search-health').val();
+    var healthLabel = $('#health option:selected').val();
+    console.log(healthLabel);
+    recipe.getSearch(food, healthLabel, healthSearch);
   });
 });

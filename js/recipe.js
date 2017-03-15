@@ -14,6 +14,16 @@ Recipe.prototype.getRecipe = function(food, searchedFood) {
   });
 
 };
+
+Recipe.prototype.getSearch = function(food, healthLabel, healthSearch) {
+  $.get("https://api.edamam.com/search?q="+food+"&app_id=3f317947&app_key=d133f0986c5db001a51db5b6be428b6a&from=0&to=25&health=" + healthLabel)
+  .then(function(response){
+    healthSearch(response);
+    console.log("healthSearch" + response);
+  }).fail(function(error) {
+
+  });
+};
 exports.recipeModule = Recipe;
 
 

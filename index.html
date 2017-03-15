@@ -10,16 +10,30 @@
   </head>
   <body>
     <div class="container">
+
       <h1>The ultimate exaggerated recipe and food nutrition finder!</h1>
-
-
       <form class="form-group" id="search-form">
         <label for="food">Enter food item:</label>
-        <input id="search-food" class="form-control" type="text" name="food">
-        <button class="btn btn-info" id='button' type="submit">click</button>
+        <input id="search-food" class="form-control" type="text" name="food" required="">
+        <button class="btn btn-info" id='button' type="submit">Submit</button>
       </form>
-      <div class="well display-results" id="display-results">
 
+
+      <form class="form-group" id="health-label">
+        <label for="healthLabel">Find recipe by diet:</label>
+        <label for="search-health">Enter food item:</label>
+        <input id="search-health" class="form-control" type="text" name="search-health" required="">
+        <select id="health" name="health">
+          <option value="vegetarian">Vegetarian</option>
+          <option value="vegan">Vegan</option>
+          <option value="paleo">Paleo</option>
+          <option value="gluten-free">Gluten-free</option>
+        </select>
+        <button class="btn btn-info" type="submit" id="findHealth">Submit</button>
+      </form>
+
+
+      <div class="display-results" id="display-results">
       </div>
     </div>
   </body>
